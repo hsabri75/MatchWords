@@ -8,5 +8,5 @@ import com.example.matchwords.mvc.view.framedtext.FramedText
 interface IView {
     fun setController(controller: IController)
     fun updateView(list: List<FramedText>?)
-    fun getViewDimensionsHeight() : Size
+    fun getViewSize() : Size
 }

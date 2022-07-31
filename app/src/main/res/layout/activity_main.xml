@@ -10,8 +10,7 @@
         android:id="@+id/button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/check_words"
-        android:enabled="false"/>
+        android:text="@string/check_words"/>
 
     <com.example.matchwords.mvc.view.framedtext.FramedTextView
         android:id="@+id/framedText"

@@ -5,6 +5,7 @@ import android.graphics.Canvas
 import android.util.AttributeSet
 import android.util.Log
 import android.util.Size
+import android.view.MotionEvent
 import android.view.View
 import com.example.matchwords.mvc.controller.IController
 import com.example.matchwords.mvc.view.IView
@@ -17,17 +18,9 @@ class FramedTextView @JvmOverloads constructor(
     private var list: List<FramedText>? = null
     private var controller: IController? =null
     private var finished = false
-    init{
 
-    }
-    var myWidth:Int? =null
-    var myHeight:Int? =null
 
-    override fun onLayout(changed: Boolean, left: Int, top: Int, right: Int, bottom: Int) {
-        super.onLayout(changed, left, top, right, bottom)
-        myWidth = width
-        myHeight = height
-    }
+
 
     override fun setController(controller: IController) {
         this.controller=controller
@@ -38,15 +31,20 @@ class FramedTextView @JvmOverloads constructor(
         this.invalidate()
     }
 
-    override fun getViewDimensionsHeight(): Size {
+    override fun getViewSize(): Size {
         return Size(width, height)
     }
 
     override fun layout(l: Int, t: Int, r: Int, b: Int) {
         super.layout(l, t, r, b)
-        Log.d("HSA", "Layout $l  $t $r $b $myWidth $myHeight" )
         controller?.updateView()
     }
+
+    override fun onTouchEvent(event: MotionEvent?): Boolean {
+        controller?.onClick(event!!.x,event.y)
+        return super.onTouchEvent(event)
+    }
+
 
 
     override fun draw(canvas: Canvas?) {
@@ -55,20 +53,23 @@ class FramedTextView @JvmOverloads constructor(
             for(framedText in list!!){
 
                 val rect=framedText.frame
+                val framedPainter= framedText.framedPainter
 
                 //Background
-                canvas?.drawRect(rect, framedText.paintBackground )
+                canvas?.drawRect(rect, framedPainter.paintBackground )
 
                 //Text
                 val text = framedText.text
-                val textHeight = framedText.paintText.fontMetrics.descent - framedText.paintText.fontMetrics.ascent
-                val textVerticalOffset = textHeight/2 - framedText.paintText.fontMetrics.descent
+                val paintText=framedPainter.paintText
+                val fontMetrics=paintText.fontMetrics
+                val textVerticalOffset = (fontMetrics.descent - fontMetrics.ascent)/2 - fontMetrics.descent
                 canvas?.drawText(text,
-                    rect.centerX(), rect.centerY() + textVerticalOffset ,
-                    framedText.paintText)
+                    rect.centerX(),
+                    rect.centerY() + textVerticalOffset ,
+                    paintText)
 
                 //Frame
-                 canvas?.drawRect(rect, framedText.paintFrame)
+                 canvas?.drawRect(rect, framedPainter.paintFrame)
 
             }
         }
