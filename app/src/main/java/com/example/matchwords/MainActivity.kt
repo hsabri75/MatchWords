@@ -1,12 +1,17 @@
 package com.example.matchwords
 
+import android.content.Context
 import android.graphics.Color
-import android.graphics.Paint
 import android.graphics.RectF
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.AttributeSet
+import android.util.Log
+import android.view.View
 import com.example.matchwords.databinding.ActivityMainBinding
-import com.example.matchwords.mvc.view.FramedTextView
+import com.example.matchwords.mvc.controller.FramedTextController
+import com.example.matchwords.mvc.model.source.RandomFilteredSource
+import com.example.matchwords.mvc.model.source.ShortRussianSource
 import com.example.matchwords.mvc.view.framedtext.FramedText
 
 class MainActivity : AppCompatActivity() {
@@ -16,13 +21,14 @@ class MainActivity : AppCompatActivity() {
         binding= ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         val framedText = binding.framedText
-
-
-        framedText.updateView(getTestFramedText())
-
+        FramedTextController(framedText, RandomFilteredSource(ShortRussianSource(),8).getSourceData())
 
 
     }
+
+
+
+
 
     private fun getTestFramedText(): List<FramedText>{
         val blueThickFrame = FramedText.defaultPaintFrame()

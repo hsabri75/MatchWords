@@ -13,9 +13,9 @@
         android:text="@string/check_words"
         android:enabled="false"/>
 
-    <com.example.matchwords.mvc.view.FramedTextView
+    <com.example.matchwords.mvc.view.framedtext.FramedTextView
         android:id="@+id/framedText"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="match_parent"/>
 
 </LinearLayout>
