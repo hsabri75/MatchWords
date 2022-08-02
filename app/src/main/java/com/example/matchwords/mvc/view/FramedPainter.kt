@@ -1,15 +1,26 @@
-package com.example.matchwords.mvc.view.framedtext
+package com.example.matchwords.mvc.view
 
 import android.graphics.Color
 import android.graphics.Paint
 
 open class FramedPainter(var paintBackground: Paint = defaultBackgroundPaint()
                     ,var paintText: Paint = defaultTextPaint()
-                    ,var paintFrame: Paint = defaultFramePaint())
+                    ,var paintFrame: Paint = defaultFramePaint()
+)
 {
     companion object{
 
-        fun defaultSelectionPainter(): FramedPainter{
+        fun strikethroughTextPainter(): Paint {
+            val paintText = Paint()
+            paintText.style = Paint.Style.FILL
+            paintText.color = Color.RED
+            paintText.textSize = 40F
+            paintText.isStrikeThruText=true
+            paintText.textAlign = Paint.Align.CENTER
+            return paintText
+        }
+
+        fun defaultSelectionPainter(): FramedPainter {
             val paintBG= defaultBackgroundPaint()
             paintBG.color=Color.YELLOW
             val paintText= defaultTextPaint()

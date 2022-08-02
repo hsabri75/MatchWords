@@ -1,8 +1,11 @@
 package com.example.matchwords.mvc.controller
 
-interface IController {
+import android.graphics.Canvas
 
+interface IController {
     fun updateView()
     fun onClick(x: Float, y: Float)
+    fun draw(canvas: Canvas?)
+    fun check()
 
 }
