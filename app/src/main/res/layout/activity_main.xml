@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:text="@string/check_words"/>
 
-    <com.example.matchwords.mvc.view.SimpleView
+    <com.example.matchwords.mvc.view.MatchWordsView
         android:id="@+id/simpleView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>

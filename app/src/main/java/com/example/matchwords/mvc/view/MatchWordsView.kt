@@ -9,7 +9,7 @@ import android.view.View
 import com.example.matchwords.mvc.controller.IController
 
 
-class SimpleView @JvmOverloads constructor(
+class MatchWordsView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyle: Int = 0

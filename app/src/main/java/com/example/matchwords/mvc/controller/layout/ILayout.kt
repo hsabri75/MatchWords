@@ -1,7 +1,7 @@
 package com.example.matchwords.mvc.controller.layout
 
 import android.util.Size
-import com.example.matchwords.mvc.model.DataItem
+import com.example.matchwords.mvc.utilities.DataItem
 
 interface ILayout {
     fun place(array: Array<Array<DataItem>>, size: Size)

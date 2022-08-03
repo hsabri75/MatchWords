@@ -2,6 +2,7 @@ package com.example.matchwords.mvc.model
 
 import com.example.matchwords.mvc.controller.IController
 import com.example.matchwords.mvc.model.source.ISource
+import com.example.matchwords.mvc.utilities.DataItem
 
 abstract class AbstractModel(source: ISource) : IModel {
     private val sourceData=source.getSourceData()
@@ -29,22 +30,25 @@ abstract class AbstractModel(source: ISource) : IModel {
         val shuffled = (itemList.indices).shuffled()
 
         itemList.forEachIndexed() {index, arrayOfDataItems ->
-            arrayOfDataItems[1].text= sourceData[shuffled[index]][1]
+            arrayOfDataItems[1].text = sourceData[shuffled[index]][1]
+            arrayOfDataItems[1].correctText = sourceData[index][1]
         }
     }
 
     protected fun selectAll(selected:Boolean){
         itemList.forEach { it.forEach { item -> item.selected=selected } }
     }
-
+/*
     override fun check() : Array<Boolean> {
         selectAll(false)
-        val correctList= Array(itemList.size) { false }
+        //val correctList= Array(itemList.size) { false }
+
         itemList.forEachIndexed() { index, arrayOfDataItems ->
             correctList[index] = arrayOfDataItems[1].text == sourceData[index][1]
         }
         return correctList
     }
+ */
 
 
 }

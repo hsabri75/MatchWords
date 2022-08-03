@@ -4,16 +4,14 @@ import android.graphics.Canvas
 import android.util.Size
 import com.example.matchwords.mvc.controller.layout.ILayout
 import com.example.matchwords.mvc.model.IModel
-import com.example.matchwords.mvc.view.IDrawer
 import com.example.matchwords.mvc.view.IView
+import com.example.matchwords.mvc.view.modeldrawer.ModelDrawer
 
 
 class Controller (private val view: IView
                   , private val model: IModel
                   , private val layout: ILayout
-                  , private val layers: List<IDrawer>
-                  , private val layersSelected: List<IDrawer>
-                  , private val layersFalse: List<IDrawer>
+                  , private val drawerGroup: ModelDrawer
 ): IController {
     private var frameSize: Size? =null
     private var isFinished=false
@@ -40,21 +38,14 @@ class Controller (private val view: IView
 
     override fun draw(canvas: Canvas?) {
         layout.place(model.getArray(), frameSize!!)
-        val listSel = if (isFinished) layersFalse else layersSelected
-        model.getArray().forEach {
-            it.forEach { dataItem ->
-                val list = if (dataItem.selected) listSel else layers
-                list.forEach { drawer ->
-                    drawer.draw(canvas, dataItem)
-                }
-            }
-        }
+        drawerGroup.draw(canvas, model, isFinished)
     }
 
     override fun check() {
-        val res= model.check()
-        res.forEachIndexed{index, isCorrect ->
-            model.select(index,1,!isCorrect)
+        model.getArray().forEachIndexed{ index, arrElement ->
+            model.select(index,0,false)
+            val isCorrect = arrElement[1].correctText != arrElement[1].text
+            model.select(index,1, isCorrect)
         }
         isFinished =true
         updateView()
