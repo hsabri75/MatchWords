@@ -6,6 +6,6 @@ interface IController {
     fun updateView()
     fun onClick(x: Float, y: Float)
     fun draw(canvas: Canvas?)
-    fun check()
+    fun check():Int
 
 }

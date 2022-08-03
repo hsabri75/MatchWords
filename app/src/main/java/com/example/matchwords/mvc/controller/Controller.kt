@@ -5,13 +5,14 @@ import android.util.Size
 import com.example.matchwords.mvc.controller.layout.ILayout
 import com.example.matchwords.mvc.model.IModel
 import com.example.matchwords.mvc.view.IView
+import com.example.matchwords.mvc.view.modeldrawer.IModelDrawer
 import com.example.matchwords.mvc.view.modeldrawer.ModelDrawer
 
 
 class Controller (private val view: IView
                   , private val model: IModel
                   , private val layout: ILayout
-                  , private val drawerGroup: ModelDrawer
+                  , private val drawerGroup: IModelDrawer
 ): IController {
     private var frameSize: Size? =null
     private var isFinished=false
@@ -20,6 +21,7 @@ class Controller (private val view: IView
         view.setController(this)
         model.setController(this)
         model.shuffle()
+        updateView()
     }
     override fun updateView(){
         if(frameSize==null){
@@ -41,14 +43,14 @@ class Controller (private val view: IView
         drawerGroup.draw(canvas, model, isFinished)
     }
 
-    override fun check() {
-        model.getArray().forEachIndexed{ index, arrElement ->
-            model.select(index,0,false)
-            val isCorrect = arrElement[1].correctText != arrElement[1].text
-            model.select(index,1, isCorrect)
+    override fun check():Int {
+        var count=0
+        model.getArray().forEach{
+            if(it[1].correctText == it[1].text) count++
         }
         isFinished =true
         updateView()
+        return count
     }
 
 

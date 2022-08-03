@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">MatchWords</string>
     <string name="check_words">Check Words</string>
+    <string name="new_game">New Game</string>
 </resources>

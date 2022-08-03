@@ -8,19 +8,19 @@ import com.example.matchwords.mvc.view.IDrawer
 
 class FalseTextDrawer(private val paintText: Paint): IDrawer {
     private var previousColor= paintText.color
-    private var previousIsStrikeThrough = paintText.isStrikeThruText
+    //private var previousIsStrikeThrough = paintText.isStrikeThruText
     private val verticalOffsetRatio = 4
 
     private fun modifyPaint(){
         previousColor= paintText.color
-        previousIsStrikeThrough = paintText.isStrikeThruText
+        //previousIsStrikeThrough = paintText.isStrikeThruText
 
         paintText.color = Color.GREEN
-        paintText.isStrikeThruText = false
+        //paintText.isStrikeThruText = false
     }
     private fun resetPaint(){
         paintText.color=previousColor
-        paintText.isStrikeThruText = previousIsStrikeThrough
+        //paintText.isStrikeThruText = previousIsStrikeThrough
     }
 
     override fun draw(canvas: Canvas?, item: DataItem) {
@@ -33,12 +33,17 @@ class FalseTextDrawer(private val paintText: Paint): IDrawer {
                 safeRect.centerX(),
                 safeRect.top +  verticalOffsetRatio*textVerticalOffset ,
                 paintText)
-            modifyPaint()
-            canvas?.drawText(item.correctText!!,
-                safeRect.centerX(),
-                safeRect.bottom -  verticalOffsetRatio*textVerticalOffset ,
-                paintText)
-            resetPaint()
+
+            if(item.correctText!=null){
+                modifyPaint()
+                canvas?.drawText(item.correctText!!,
+                    safeRect.centerX(),
+                    safeRect.bottom -  verticalOffsetRatio*textVerticalOffset ,
+                    paintText)
+                resetPaint()
+            }
+
+
         }
 
 
