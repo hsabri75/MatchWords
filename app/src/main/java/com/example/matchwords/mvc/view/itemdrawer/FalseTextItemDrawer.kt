@@ -4,12 +4,12 @@ import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
 import com.example.matchwords.mvc.utilities.DataItem
-import com.example.matchwords.mvc.view.IDrawer
 
-class FalseTextDrawer(private val paintText: Paint): IDrawer {
+
+class FalseTextItemDrawer(private val paintText: Paint): IItemDrawer {
     private var previousColor= paintText.color
     //private var previousIsStrikeThrough = paintText.isStrikeThruText
-    private val verticalOffsetRatio = 4
+    private val verticalOffsetRatio = 1.5F
 
     private fun modifyPaint(){
         previousColor= paintText.color
@@ -31,14 +31,14 @@ class FalseTextDrawer(private val paintText: Paint): IDrawer {
             val textVerticalOffset = (fontMetrics.descent - fontMetrics.ascent)/2 - fontMetrics.descent
             canvas?.drawText(item.text,
                 safeRect.centerX(),
-                safeRect.top +  verticalOffsetRatio*textVerticalOffset ,
+                safeRect.centerY() + (1+verticalOffsetRatio)* textVerticalOffset  ,
                 paintText)
 
             if(item.correctText!=null){
                 modifyPaint()
                 canvas?.drawText(item.correctText!!,
                     safeRect.centerX(),
-                    safeRect.bottom -  verticalOffsetRatio*textVerticalOffset ,
+                    safeRect.centerY() + (1-verticalOffsetRatio) * textVerticalOffset ,
                     paintText)
                 resetPaint()
             }

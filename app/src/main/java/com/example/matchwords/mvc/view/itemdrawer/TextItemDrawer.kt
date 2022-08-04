@@ -3,11 +3,10 @@ package com.example.matchwords.mvc.view.itemdrawer
 import android.graphics.Canvas
 import android.graphics.Paint
 import com.example.matchwords.mvc.utilities.DataItem
-import com.example.matchwords.mvc.utilities.PaintFactory
-import com.example.matchwords.mvc.view.IDrawer
-import com.example.matchwords.mvc.view.modeldrawer.ModelDrawer
+import com.example.matchwords.mvc.utilities.TextPaint
 
-class TextDrawer(private val paintText: Paint = PaintFactory.textPaint()): IDrawer {
+
+class TextItemDrawer(private val paintText: Paint = TextPaint()): IItemDrawer {
     override fun draw(canvas: Canvas?, item: DataItem) {
         if(item.rect != null) {
             val safeRect = item.rect!!

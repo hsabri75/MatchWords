@@ -3,45 +3,33 @@ package com.example.matchwords.mvc.view.modeldrawer
 
 import android.graphics.Canvas
 import android.graphics.Color
-import android.graphics.Paint
 
 import com.example.matchwords.mvc.model.IModel
-import com.example.matchwords.mvc.utilities.PaintFactory
-import com.example.matchwords.mvc.view.IDrawer
-import com.example.matchwords.mvc.view.itemdrawer.BorderDrawer
-import com.example.matchwords.mvc.view.itemdrawer.FalseTextDrawer
-import com.example.matchwords.mvc.view.itemdrawer.RectangleDrawer
-import com.example.matchwords.mvc.view.itemdrawer.TextDrawer
+
+import com.example.matchwords.mvc.utilities.*
+import com.example.matchwords.mvc.view.itemdrawer.IItemDrawer
+import com.example.matchwords.mvc.view.itemdrawer.BorderItemDrawer
+import com.example.matchwords.mvc.view.itemdrawer.FalseTextItemDrawer
+import com.example.matchwords.mvc.view.itemdrawer.RectangleItemDrawer
+import com.example.matchwords.mvc.view.itemdrawer.TextItemDrawer
 
 class ModelDrawer(
-    private val unSelectedDrawer: MutableList<IDrawer> =mutableListOf<IDrawer>().also{
-        it.add(TextDrawer())
-        it.add(BorderDrawer())                                    },
-    private val selectedDrawer: MutableList<IDrawer> =mutableListOf<IDrawer>().also{
-        with(PaintFactory){
-            it.add(RectangleDrawer(selectedBackgroundPaint()))
-            it.add(TextDrawer(selectedTextPaint()))
-            it.add(RectangleDrawer(framePaint()))
-        }
+    private val unSelectedDrawer: MutableList<IItemDrawer> =mutableListOf<IItemDrawer>().also{
+        it.add(TextItemDrawer())
+        it.add(BorderItemDrawer())                                    },
+    private val selectedDrawer: MutableList<IItemDrawer> =mutableListOf<IItemDrawer>().also{
+            it.add(RectangleItemDrawer(SelectedBackgroundPaint()))
+            it.add(TextItemDrawer(SelectedTextPaint()))
+            it.add(RectangleItemDrawer(FramePaint()))
     },
-    private val correctDrawer: MutableList<IDrawer> =mutableListOf<IDrawer>().also {
-        it.add(TextDrawer(PaintFactory.textPaint().also{
-                paint -> paint.color = Color.GREEN
-        }))
-        it.add(
-            BorderDrawer(PaintFactory.framePaint().also { paint -> paint.color=Color.GREEN })
-        )
+    private val correctDrawer: MutableList<IItemDrawer> =mutableListOf<IItemDrawer>().also {
+        it.add(TextItemDrawer(TextPaint(color= Color.GREEN)))
+        it.add(BorderItemDrawer(FramePaint(color=Color.GREEN)))
     },
-    private val incorrectDrawer: MutableList<IDrawer> =mutableListOf<IDrawer>().also{
-        it.add(
-            FalseTextDrawer(
-                PaintFactory.textPaint().also { paint ->
-                    paint.color = Color.RED
-                    //paint.isStrikeThruText=true
-                }))
-        it.add(
-            BorderDrawer(PaintFactory.framePaint().also { paint -> paint.color=Color.RED })
-        )
+    private val incorrectDrawer: MutableList<IItemDrawer> =mutableListOf<IItemDrawer>().also{
+        it.add(FalseTextItemDrawer( TextPaint(color=Color.RED)))
+        it.add(BorderItemDrawer(FramePaint(color=Color.RED)))
+
     }): IModelDrawer
 {
     override fun draw(canvas: Canvas?, model: IModel, isFinished: Boolean){
@@ -60,9 +48,6 @@ class ModelDrawer(
                     incorrectDrawer.forEach { it.draw(canvas, dataItem)}
                     incorrectDrawer.forEach{ it.draw(canvas, arrayItem[0])}
                 }
-                //unSelectedDrawer.forEach{ it.draw(canvas, arrayItem[0])}
-
-
             }
         }
     }

@@ -23,7 +23,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private var isPlaying=false
     private var controller: IController?=null
-    private val questionCount=8
+    private val questionCount=16
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -50,7 +50,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun newGame(drawerGroup: IModelDrawer, layout: ILayout  ){
         val model= SwappableModel(RandomFilteredSource(CapitalSource(),questionCount))
-        controller= Controller(binding.simpleView, model, layout, drawerGroup )
+        controller= Controller(binding.simpleView, model, layout, drawerGroup)
     }
 
 
