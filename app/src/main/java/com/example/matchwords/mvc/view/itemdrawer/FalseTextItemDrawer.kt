@@ -3,7 +3,7 @@ package com.example.matchwords.mvc.view.itemdrawer
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
-import com.example.matchwords.mvc.utilities.DataItem
+import com.example.matchwords.mvc.utilities.MutableDataItem
 
 
 class FalseTextItemDrawer(private val paintText: Paint): IItemDrawer {
@@ -23,29 +23,22 @@ class FalseTextItemDrawer(private val paintText: Paint): IItemDrawer {
         //paintText.isStrikeThruText = previousIsStrikeThrough
     }
 
-    override fun draw(canvas: Canvas?, item: DataItem) {
-
-        if(item.rect != null) {
-            val safeRect = item.rect!!
+    override fun draw(canvas: Canvas?, item: MutableDataItem) {
+        item.rect?.let{
             val fontMetrics=paintText.fontMetrics
             val textVerticalOffset = (fontMetrics.descent - fontMetrics.ascent)/2 - fontMetrics.descent
             canvas?.drawText(item.text,
-                safeRect.centerX(),
-                safeRect.centerY() + (1+verticalOffsetRatio)* textVerticalOffset  ,
+                it.centerX(),
+                it.centerY() + (1+verticalOffsetRatio)* textVerticalOffset  ,
                 paintText)
-
-            if(item.correctText!=null){
+            item.correctText?.let{ correctText ->
                 modifyPaint()
-                canvas?.drawText(item.correctText!!,
-                    safeRect.centerX(),
-                    safeRect.centerY() + (1-verticalOffsetRatio) * textVerticalOffset ,
+                canvas?.drawText(correctText,
+                    it.centerX(),
+                    it.centerY() + (1-verticalOffsetRatio) * textVerticalOffset ,
                     paintText)
                 resetPaint()
             }
-
-
         }
-
-
     }
 }

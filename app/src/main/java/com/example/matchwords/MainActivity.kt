@@ -50,7 +50,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun newGame(drawerGroup: IModelDrawer, layout: ILayout  ){
         val model= SwappableModel(RandomFilteredSource(CapitalSource(),questionCount))
-        controller= Controller(binding.simpleView, model, layout, drawerGroup)
+        controller= Controller(binding.matchWordsView, model, layout, drawerGroup)
     }
 
 

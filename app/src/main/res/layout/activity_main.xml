@@ -13,7 +13,7 @@
         android:text="@string/new_game"/>
 
     <com.example.matchwords.mvc.view.MatchWordsView
-        android:id="@+id/simpleView"
+        android:id="@+id/matchWordsView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 

@@ -3,16 +3,16 @@ package com.example.matchwords.mvc.model.source
 class SampleSource: ISource {
     override fun getSourceData(): Array<Array<String>> {
         return arrayOf(
-            arrayOf("one", "1"),
-            arrayOf("two", "2"),
-            arrayOf("three", "3"),
-            arrayOf("four", "4"),
-            arrayOf("five", "5"),
-            arrayOf("six", "6"),
-            arrayOf("seven", "7"),
-            arrayOf("eight", "8"),
-            arrayOf("nine", "9"),
-            arrayOf("ten", "10"),
+            arrayOf("1","one"),
+            arrayOf("2", "two"),
+            arrayOf("3", "three"),
+            arrayOf("4", "four"),
+            arrayOf("5", "five"),
+            arrayOf("6", "six"),
+            arrayOf("7", "seven"),
+            arrayOf("8", "eight"),
+            arrayOf("9", "nine"),
+            arrayOf("10", "ten"),
         )
     }
 }

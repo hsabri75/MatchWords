@@ -2,14 +2,15 @@ package com.example.matchwords.mvc.model
 
 import com.example.matchwords.mvc.controller.IController
 import com.example.matchwords.mvc.model.source.ISource
-import com.example.matchwords.mvc.utilities.DataItem
+import com.example.matchwords.mvc.utilities.MutableDataItem
+
 
 abstract class AbstractModel(source: ISource) : IModel {
     private val sourceData=source.getSourceData()
-    protected val itemList= (sourceData.map {arr -> (arr.map { str -> DataItem(str) }).toTypedArray() }).toTypedArray()
+    protected val itemList= (sourceData.map {arr -> (arr.map { str -> MutableDataItem(str, correctText = null) }).toTypedArray() }).toTypedArray()
     private var _controller: IController? =null
 
-    override fun select(row: Int, column: Int, isSelected: Boolean) {
+    fun select(row: Int, column: Int, isSelected: Boolean) {
         if(row>=0){
             if(column>=0){
                 itemList[row][column].selected=isSelected
@@ -22,9 +23,12 @@ abstract class AbstractModel(source: ISource) : IModel {
         this._controller = controller
     }
 
-    override fun getArray(): Array<Array<DataItem>> {
-        return itemList
-    }
+    override fun getItem(row: Int, column: Int):MutableDataItem = itemList[row][column]
+
+    override fun getRowCount() : Int = itemList.size
+
+    override fun getColumnCount(): Int = itemList[0].size
+
 
     override fun shuffle() {
         val shuffled = (itemList.indices).shuffled()
@@ -38,17 +42,7 @@ abstract class AbstractModel(source: ISource) : IModel {
     protected fun selectAll(selected:Boolean){
         itemList.forEach { it.forEach { item -> item.selected=selected } }
     }
-/*
-    override fun check() : Array<Boolean> {
-        selectAll(false)
-        //val correctList= Array(itemList.size) { false }
 
-        itemList.forEachIndexed() { index, arrayOfDataItems ->
-            correctList[index] = arrayOfDataItems[1].text == sourceData[index][1]
-        }
-        return correctList
-    }
- */
 
 
 }

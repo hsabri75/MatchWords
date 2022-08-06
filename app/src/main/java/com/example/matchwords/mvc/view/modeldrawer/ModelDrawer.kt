@@ -33,6 +33,27 @@ class ModelDrawer(
     }): IModelDrawer
 {
     override fun draw(canvas: Canvas?, model: IModel, isFinished: Boolean){
+        (0 until model.getRowCount()).forEach{row ->
+            if(!isFinished){
+                (0 until model.getColumnCount()).forEach{column ->
+                    val dataItem= model.getItem(row, column)
+                    val list = if (dataItem.selected) selectedDrawer else unSelectedDrawer
+                    list.forEach { it.draw(canvas, dataItem) }
+                }
+            }else{
+                val dataItem =model.getItem(row,1)
+                if(dataItem.text== dataItem.correctText ){
+                    correctDrawer.forEach { it.draw(canvas, dataItem)}
+                    correctDrawer.forEach{ it.draw(canvas, model.getItem(row,0))}
+                }else{
+                    incorrectDrawer.forEach { it.draw(canvas, dataItem)}
+                    incorrectDrawer.forEach{ it.draw(canvas, model.getItem(row,0))}
+                }
+            }
+
+
+        }
+        /*
         model.getArray().forEach {arrayItem ->
             if(!isFinished) {
                 arrayItem.forEachIndexed { index, dataItem ->
@@ -49,7 +70,7 @@ class ModelDrawer(
                     incorrectDrawer.forEach{ it.draw(canvas, arrayItem[0])}
                 }
             }
-        }
+        }*/
     }
 
 }

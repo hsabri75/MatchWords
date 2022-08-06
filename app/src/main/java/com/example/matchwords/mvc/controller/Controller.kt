@@ -25,8 +25,8 @@ class Controller (private val view: IView
     }
     override fun updateView(){
         if(frameSize==null){
-            frameSize=Size(view.getViewSize().width / model.getArray()[0].size,
-                view.getViewSize().height / model.getArray().size)
+            frameSize=Size(view.getViewSize().width / model.getColumnCount(),
+                view.getViewSize().height / model.getRowCount())
         }
         view.updateView()
     }
@@ -39,14 +39,16 @@ class Controller (private val view: IView
     }
 
     override fun draw(canvas: Canvas?) {
-        layout.place(model.getArray(), frameSize!!)
+        layout.place(model, frameSize!!)
         drawerGroup.draw(canvas, model, isFinished)
     }
 
     override fun check():Int {
         var count=0
-        model.getArray().forEach{
-            if(it[1].correctText == it[1].text) count++
+        (0 until model.getRowCount()).forEach {
+            with(model.getItem(it,1)){
+                if(text== correctText) count++
+            }
         }
         isFinished =true
         updateView()
