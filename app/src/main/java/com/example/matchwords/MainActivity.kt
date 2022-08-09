@@ -11,9 +11,7 @@ import com.example.matchwords.mvc.controller.layout.ILayout
 import com.example.matchwords.mvc.model.IModel
 
 import com.example.matchwords.mvc.model.SwappableModel
-import com.example.matchwords.mvc.model.source.CapitalSource
-import com.example.matchwords.mvc.model.source.RandomFilteredSource
-import com.example.matchwords.mvc.model.source.ShortRussianSource
+import com.example.matchwords.mvc.model.source.*
 import com.example.matchwords.mvc.view.modeldrawer.IModelDrawer
 import com.example.matchwords.mvc.view.modeldrawer.ModelDrawer
 
@@ -23,7 +21,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private var isPlaying=false
     private var controller: IController?=null
-    private val questionCount=16
+    private var questionCount=16
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -40,16 +38,18 @@ class MainActivity : AppCompatActivity() {
                 binding.button.text= resources.getString(R.string.new_game)
                 isPlaying=false
             }else{
-                newGame(drawerGroup,layout)
+                //val source= SampleSource()
+                val source= RandomFilteredSource(CapitalSource(),questionCount)
+                questionCount = source.getSourceData().size
+                newGame(drawerGroup,layout, source)
                 binding.button.text=resources.getString(R.string.check_words)
                 isPlaying=true
             }
-
         }
     }
 
-    private fun newGame(drawerGroup: IModelDrawer, layout: ILayout  ){
-        val model= SwappableModel(RandomFilteredSource(CapitalSource(),questionCount))
+    private fun newGame(drawerGroup: IModelDrawer, layout: ILayout,source: ISource){
+        val model= SwappableModel(source)
         controller= Controller(binding.matchWordsView, model, layout, drawerGroup)
     }
 

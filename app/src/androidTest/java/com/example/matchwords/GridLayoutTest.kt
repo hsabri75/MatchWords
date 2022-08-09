@@ -1,13 +1,11 @@
-package com.example.matchwords.mvc.controller.layout
+package com.example.matchwords
 
 import android.util.Size
+import com.example.matchwords.mvc.controller.layout.GridLayout
 import com.example.matchwords.mvc.model.IModel
 import com.example.matchwords.mvc.model.SimpleSelectionModel
 import com.example.matchwords.mvc.model.source.SampleSource
-import com.example.matchwords.mvc.utilities.MutableDataItem
 import com.google.common.truth.Truth.assertThat
-
-
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
@@ -25,14 +23,8 @@ class GridLayoutTest {
     fun setUp() {
         size= Size(sizeWidth,sizeHeight)
         model= SimpleSelectionModel(SampleSource())
-        //array = model.getArray()
     }
 
-
-    @After
-    fun tearDown() {
-
-    }
 
     @Test
     fun place() {
@@ -53,7 +45,6 @@ class GridLayoutTest {
             assertThat(getItem(1,0).rect?.centerY()).isEqualTo(sizeHeight * 1.5F)
 
         }
-
 
     }
 

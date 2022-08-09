@@ -1,7 +1,5 @@
 package com.example.matchwords.mvc.utilities
 
-
-
 import android.graphics.Color
 import android.graphics.Paint
 

@@ -1,6 +1,5 @@
 package com.example.matchwords.mvc.model.source
 
-import android.util.Log
 import kotlin.random.Random
 
 class RandomFilteredSource(private val source: ISource, private val wordCount: Int):ISource  {

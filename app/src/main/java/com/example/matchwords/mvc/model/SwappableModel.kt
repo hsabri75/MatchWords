@@ -4,7 +4,7 @@ import com.example.matchwords.mvc.model.source.ISource
 
 class SwappableModel(source: ISource) : AbstractModel(source) {
 
-    private var modelSelection= SelectionLogic(this)
+    private var modelSelection= SingleSelectionFromRow(this)
 
     override fun onClick(row: Int, column: Int) {
         modelSelection.performSelection(row,column)
@@ -19,7 +19,7 @@ class SwappableModel(source: ISource) : AbstractModel(source) {
         itemList[row1][1].processed=true
     }
 }
-class SelectionLogic(private val _swappable: SwappableModel){
+class SingleSelectionFromRow(private val _swappable: SwappableModel){
     private var selectedRows :Array<Int> = arrayOf(-1,-1)
 
     fun performSelection(row: Int, column: Int){

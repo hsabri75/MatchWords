@@ -6,7 +6,6 @@ import com.example.matchwords.mvc.controller.layout.ILayout
 import com.example.matchwords.mvc.model.IModel
 import com.example.matchwords.mvc.view.IView
 import com.example.matchwords.mvc.view.modeldrawer.IModelDrawer
-import com.example.matchwords.mvc.view.modeldrawer.ModelDrawer
 
 
 class Controller (private val view: IView

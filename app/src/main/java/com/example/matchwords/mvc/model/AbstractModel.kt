@@ -39,10 +39,5 @@ abstract class AbstractModel(source: ISource) : IModel {
         }
     }
 
-    protected fun selectAll(selected:Boolean){
-        itemList.forEach { it.forEach { item -> item.selected=selected } }
-    }
-
-
 
 }

@@ -3,9 +3,7 @@ package com.example.matchwords.mvc.view.modeldrawer
 
 import android.graphics.Canvas
 import android.graphics.Color
-
 import com.example.matchwords.mvc.model.IModel
-
 import com.example.matchwords.mvc.utilities.*
 import com.example.matchwords.mvc.view.itemdrawer.IItemDrawer
 import com.example.matchwords.mvc.view.itemdrawer.BorderItemDrawer
@@ -50,27 +48,7 @@ class ModelDrawer(
                     incorrectDrawer.forEach{ it.draw(canvas, model.getItem(row,0))}
                 }
             }
-
-
         }
-        /*
-        model.getArray().forEach {arrayItem ->
-            if(!isFinished) {
-                arrayItem.forEachIndexed { index, dataItem ->
-                    val list = if (dataItem.selected) selectedDrawer else unSelectedDrawer
-                    list.forEach { it.draw(canvas, dataItem) }
-                }
-            }else{
-                val dataItem =arrayItem[1]
-                if(dataItem.text== dataItem.correctText ){
-                    correctDrawer.forEach { it.draw(canvas, dataItem)}
-                    correctDrawer.forEach{ it.draw(canvas, arrayItem[0])}
-                }else{
-                    incorrectDrawer.forEach { it.draw(canvas, dataItem)}
-                    incorrectDrawer.forEach{ it.draw(canvas, arrayItem[0])}
-                }
-            }
-        }*/
     }
 
 }
